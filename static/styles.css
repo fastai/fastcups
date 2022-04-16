@@ -1,0 +1,56 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+section, article, aside, footer, header, nav {
+  display: block;
+}
+
+.main {
+  margin: auto;
+  width: 312px;
+  border: 1px solid black;
+}
+
+svg {
+  margin: 40px auto 60px;
+  display: block;
+}
+
+path {
+  fill: #ECECEC;
+  stroke: #A5A49F;
+}
+
+path.green {
+  fill: #7CFF4E;
+}
+
+path.yellow {
+  fill: #FCF551;
+}
+
+path.green {
+  fill: #FF4848;
+}
+
+p {
+  margin: auto;
+  width: 90%;
+  margin-bottom: 20px;
+  padding: 8px;
+}
+
+.green {
+  background: #D7FEC9;
+}
+
+.yellow{
+  background: #FFFCAF;
+}
+
+.red {
+  background: #FDE4E4;
+}
