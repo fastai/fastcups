@@ -16,4 +16,31 @@
   </p>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<script>
+  $(document).ready(function() {
+    var socket = io();
+    var path = $("path");
+
+    $("p").click(function() {
+      var new_color = this.className;
+      var old_color = path.attr('class') || 'grey'
+      path.removeClass();
+      path.addClass(new_color);
+      socket.emit('color_change', {old_color: old_color, new_color: new_color});
+      }
+    )
+
+    // resetting state on connection
+    // scenario:
+    //    - we reset server
+    //    - clients have already selected colors
+    //    - counts will be off
+    // this prevents the above
+    socket.on('connect', function() {
+      path.removeClass();
+    });
+  });
+</script>
