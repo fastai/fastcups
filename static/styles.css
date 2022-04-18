@@ -41,6 +41,7 @@ p {
   width: 90%;
   margin-bottom: 20px;
   padding: 8px;
+  cursor: pointer;
 }
 
 .green {

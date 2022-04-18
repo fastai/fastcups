@@ -23,6 +23,7 @@
   $(document).ready(function() {
     var socket = io();
     var path = $("path");
+    socket.emit('new_student');
 
     $("p").click(function() {
       var new_color = this.className;
@@ -33,12 +34,8 @@
       }
     )
 
-    // resetting state on connection
-    // scenario:
-    //    - we reset server
-    //    - clients have already selected colors
-    //    - counts will be off
-    // this prevents the above
+    // reset client state upon connection
+    // (to handle server restarts)
     socket.on('connect', function() {
       path.removeClass();
     });

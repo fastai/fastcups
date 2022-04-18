@@ -1,0 +1,20 @@
+<!doctype html>
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+<strong>Active student count: </strong><span id="active_student_count"></span>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  console.log('hi start')
+  $(document).ready(function() {
+    var socket = io();
+    var student_count_display = $('#active_student_count')
+
+    socket.on('update_active_student_count', function() {
+      console.log('hi');
+      student_count_display.html('100');
+    });
+  });
+</script>
