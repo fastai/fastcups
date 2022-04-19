@@ -17,13 +17,13 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/umbrellajs"></script>
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js" integrity="sha256-0H3Nuz3aug3afVbUlsu12Puxva3CP4EhJtPExqs54Vg=" crossorigin="anonymous"></script>
 
 <script>
-  $(document).ready(function() {
+  document.addEventListener("DOMContentLoaded", function() {
     var socket = io();
-    var path = $("path");
+    var path = u("path");
 
     socket.on('connect', function() {
       // we are using the SID to track connected students
@@ -47,14 +47,14 @@
     // that was triggered before html response)
     socket.on('close_old_tabs', function(student_id) {
       if (Cookies.get('student_id') == student_id) {
-        $('body').html('<h1>You opened a new tab for selecting cups. Please close this one.</h1>')
+        u('body').html('<h1>You opened a new tab for selecting cups. Please close this one.</h1>')
       socket.disconnect();
       }
     });
 
-    $("p").click(function() {
+    u("p").on("click", function() {
       var new_color = this.className;
-      path.removeClass();
+      path.attr('class', '');
       path.addClass(new_color);
       socket.emit('color_change', new_color);
       }
