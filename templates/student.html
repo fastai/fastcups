@@ -3,7 +3,7 @@
 
 <div class="main">
   <svg width="218" height="227" viewBox="0 0 218 227" xmlns="http://www.w3.org/2000/svg">
-  <path d="M175 1H42L1 226H217L175 1Z" />
+  <path class="{{ cup_state }}" d="M175 1H42L1 226H217L175 1Z" />
   </svg>
   <p class="green">
     Green - I am comfortable with my understanding and pacing of the lesson
@@ -18,26 +18,39 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js" integrity="sha256-0H3Nuz3aug3afVbUlsu12Puxva3CP4EhJtPExqs54Vg=" crossorigin="anonymous"></script>
 
 <script>
   $(document).ready(function() {
     var socket = io();
     var path = $("path");
-    socket.emit('new_student');
+
+    socket.on('connect', function() {
+      // we are using the SID to track connected students
+      // SID is only available AFTER js loads, hence this call
+      // (othwerise, we could set it in student_interface)
+      socket.emit('register_student');
+      // to handle server restarts
+      // at 'connect' we don't know if the server restarted or user opened a new tab hence the need for an ajax call (to update cup color to 'inactive' in case of a restart)
+      socket.emit('get_cup_color', function(response) {
+        path.removeClass();
+        path.addClass(response);
+      });
+    });
+
+    socket.on('close_old_tabs', function(student_id) {
+      if (Cookies.get('student_id') == student_id) {
+        $('body').html('<h1>You opened a new tab for selecting cups. Please close this one.</h1>')
+      socket.disconnect();
+      }
+    });
 
     $("p").click(function() {
       var new_color = this.className;
-      var old_color = path.attr('class') || 'grey'
       path.removeClass();
       path.addClass(new_color);
-      socket.emit('color_change', {old_color: old_color, new_color: new_color});
+      socket.emit('color_change', new_color);
       }
     )
-
-    // reset client state upon connection
-    // (to handle server restarts)
-    socket.on('connect', function() {
-      path.removeClass();
-    });
   });
 </script>

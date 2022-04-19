@@ -20,8 +20,12 @@ svg {
 }
 
 path {
-  fill: #ECECEC;
+  fill: white;
   stroke: #A5A49F;
+}
+
+path.inactive {
+  fill: #ECECEC;
 }
 
 path.green {
