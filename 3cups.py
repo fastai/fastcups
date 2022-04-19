@@ -41,7 +41,7 @@ def teacher_interface():
 
 @socketio.on('disconnect')
 def handle_disconnect():
-    sid2student.pop(request.sid)
+    sid2student.pop(request.sid, None)
 
 @socketio.on('color_change')
 def handle_color_change(new_color): student2color[request.cookies['student_id']] = new_color

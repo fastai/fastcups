@@ -38,6 +38,13 @@
       });
     });
 
+    // technically we could have a race condition here, but this is
+    // probably not something worth worrying about
+    // (especially that for the race condition to occur a `emit` would
+    // need to beat at least a round trip which is not super likely
+    // (client receiving html+js, rendering page, establishing
+    // socket io connectio, and only then receiving the emit msg
+    // that was triggered before html response)
     socket.on('close_old_tabs', function(student_id) {
       if (Cookies.get('student_id') == student_id) {
         $('body').html('<h1>You opened a new tab for selecting cups. Please close this one.</h1>')
