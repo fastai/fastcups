@@ -1,20 +1,40 @@
 <!doctype html>
 <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 
-<strong>Active student count: </strong><span id="active_student_count"></span>
+<div style="margin: 20px auto 0; height: {{ color2frac['red'] * 500 }}px; width: 100px; background-color: red">
+</div>
+<div style="margin: auto; height: {{ color2frac['yellow'] * 500 }}px; width: 100px; background-color:yellow">
+</div>
+<div style="margin: 0 auto 20px; height: {{ color2frac['green'] * 500 }}px; width: 100px; background-color: green">
+</div>
+
+<span style="font-size: 1.5rem">
+  <strong>Active students: </strong>
+  <span id="active_student_count">{{ active_student_count }}</span>
+</span>
+<br>
+<span style="color: darkgray">
+  Student count:
+  <span id="student_count">{{ student_count }}</span>
+</span>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
   console.log('hi start')
-  $(document).ready(function() {
-    var socket = io();
-    var student_count_display = $('#active_student_count')
+  setTimeout(function(){
+    window.location.reload();
+  }, 1000);
 
-    socket.on('update_active_student_count', function() {
-      console.log('hi');
-      student_count_display.html('100');
-    });
-  });
+  <!--$(document).ready(function() {-->
+    <!--var socket = io();-->
+    <!--var active_student_count_display = $('#active_student_count')-->
+
+    <!--socket.on('update_active_student_count', function() {-->
+      <!--console.log('hi');-->
+      <!--active_student_count_display.html('100');-->
+    <!--});-->
+  <!--});-->
 </script>
