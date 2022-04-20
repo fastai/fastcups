@@ -8,15 +8,10 @@ section, article, aside, footer, header, nav {
   display: block;
 }
 
-.main {
-  margin: auto;
-  width: 312px;
-  border: 1px solid black;
-}
-
 svg {
-  margin: 40px auto 60px;
+  margin: 3rem auto 4rem;
   display: block;
+  width: 80%;
 }
 
 path {
@@ -40,12 +35,8 @@ path.red {
   fill: #FF4848;
 }
 
-p {
-  margin: auto;
-  width: 90%;
-  margin-bottom: 20px;
-  padding: 8px;
-  cursor: pointer;
+#timestamp {
+  display: none;
 }
 
 .green {
@@ -60,6 +51,18 @@ p {
   background: #FDE4E4;
 }
 
-#timestamp {
-  display: none;
+p {
+  margin: auto;
+  width: 90%;
+  margin-bottom: 20px;
+  padding: 0.7rem;
+  cursor: pointer;
+}
+
+@media only screen and (min-width: 1000px) {
+  .main {
+    margin: auto;
+    width: 360px;
+    border: 1px solid black;
+  }
 }

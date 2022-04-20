@@ -1,10 +1,11 @@
 <!doctype html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 
 <span id="timestamp">{{ timestamp }}</span>
 
 <div class="main">
-  <svg width="218" height="227" viewBox="0 0 218 227" xmlns="http://www.w3.org/2000/svg">
+  <svg viewBox="0 0 218 227" xmlns="http://www.w3.org/2000/svg">
     <path class="{{ cup_state }}" d="M175 1H42L1 226H217L175 1Z" />
   </svg>
   <p class="green">

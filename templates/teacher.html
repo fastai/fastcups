@@ -1,19 +1,20 @@
 <!doctype html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 
-<div style="margin: 20px auto 0; height: {{ color2frac['red'] * 500 }}px; width: 100px; background-color: red">
+<div style="margin: 20px auto 0; height: {{ color2frac['red'] * 80}}vh; width: 100px; background-color: red">
 </div>
-<div style="margin: auto; height: {{ color2frac['yellow'] * 500 }}px; width: 100px; background-color:yellow">
+<div style="margin: auto; height: {{ color2frac['yellow'] * 80}}vh; width: 100px; background-color:yellow">
 </div>
-<div style="margin: 0 auto 20px; height: {{ color2frac['green'] * 500 }}px; width: 100px; background-color: green">
+<div style="margin: 0 auto 20px; height: {{ color2frac['green'] * 80}}vh; width: 100px; background-color: green">
 </div>
 
-<span style="font-size: 1.5rem">
+<span style="font-size: 1.5rem; padding: 1rem;">
   <strong>Active students: </strong>
   <span id="active_student_count">{{ active_student_count }}</span>
 </span>
 <br>
-<span style="color: darkgray">
+<span style="color: darkgray; padding: 1rem;">
   Student count:
   <span id="student_count">{{ student_count }}</span>
 </span>
