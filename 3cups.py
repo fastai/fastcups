@@ -30,7 +30,7 @@ def active_student_count(): # active student == one who is connected and color !
     return len(L(connected_student2color().values()).filter(lambda c: c != 'inactive'))
 
 def color_fraction():
-    return {color: L(student2color.values()).map(eq(color)).sum()/(active_student_count() or 1)
+    return {color: L(connected_student2color().values()).map(eq(color)).sum()/(active_student_count() or 1)
             for color in ['green', 'yellow', 'red']}
 
 @app.route("/teacher")
