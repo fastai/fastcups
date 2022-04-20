@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, make_response
 from flask_socketio import SocketIO, emit
 import random, string, collections
+from fastcore.utils import *
 
 app = Flask(__name__)
 socketio = SocketIO(app)
@@ -31,7 +32,7 @@ def connected_student2color():
 def active_student_count(): return sum(isinstance(s, str) for s in connected_student2color().values() if s != 'inactive')
 
 def color_fraction():
-    return {color: sum(c==color for c in connected_student2color().values())/(active_student_count() or 1)
+    return {color: L(student2color.values()).map(eq(color)).sum()/(active_student_count() or 1)
             for color in ['green', 'yellow', 'red']}
 
 @app.route("/teacher")

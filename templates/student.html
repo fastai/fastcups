@@ -38,13 +38,19 @@
       });
     });
 
-    // technically we could have a race condition here, but this is
+    // Technically we could have a race condition here, but this is
     // probably not something worth worrying about
-    // (especially that for the race condition to occur a `emit` would
+    // (especially that for the race condition to occur an `emit` would
     // need to beat at least a round trip which is not super likely
     // (client receiving html+js, rendering page, establishing
     // socket io connectio, and only then receiving the emit msg
     // that was triggered before html response)
+    // One way to solve this would be to stick a token into the
+    // page rendered at `/`, pick it up in js in the webpage, pass it
+    // into the emit on the server and
+    // don't run the body of this handler for webpages with said token
+    // This would fix the problem and would allow us to get rid of this
+    // enormous comment :)
     socket.on('close_old_tabs', function(student_id) {
       if (Cookies.get('student_id') == student_id) {
         u('body').html('<h1>You opened a new tab for selecting cups. Please close this one.</h1>')
