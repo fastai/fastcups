@@ -59,3 +59,7 @@ p {
 .red {
   background: #FDE4E4;
 }
+
+#timestamp {
+  display: none;
+}
