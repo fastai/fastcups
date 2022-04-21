@@ -2,13 +2,14 @@ from flask import Flask, render_template, request, make_response
 from flask_socketio import SocketIO, emit
 import random, string, collections, time
 from fastcore.utils import *
+from urllib.parse import urlparse
 
 app = Flask(__name__)
 socketio = SocketIO(app)
 sid2student, student2color, class2students  = dict(), collections.defaultdict(lambda: 'inactive'), collections.defaultdict(lambda: set())
 
 @app.route('/')
-def root(): return render_template('howto.html')
+def root(): return render_template('howto.html', url=f'{urlparse(request.base_url).scheme}://{urlparse(request.base_url).hostname}')
 
 @app.route('/<class_id>')
 def student_interface(class_id):
