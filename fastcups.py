@@ -11,21 +11,18 @@ sid2student, student2color, class2students  = dict(), collections.defaultdict(la
 def student_interface(class_id):
     student_id = request.cookies.get('student_id') or ''.join(random.choices(string.ascii_letters, k=12))
     class2students[class_id].add(student_id)
+    student2color[student_id] = 'inactive' # upon connecting / reconnecting / opening a new tab a student is in an inactive state
     response = make_response(render_template('student.html', cup_state=student2color[student_id], timestamp=time.time(), class_id=class_id))
     response.set_cookie('student_id', student_id)
     return response
-
-@socketio.on('get_cup_color')
-def get_cup_color_for_student():
-    return student2color[request.cookies['student_id']]
 
 @socketio.on('register_student')
 def register_student(timestamp, class_id):
     emit('deactivate_old_tabs', # a student can only have a single tab active
             {'student_id': request.cookies.get('student_id'), 'timestamp': timestamp}, broadcast=True, namespace='/')
     sid2student[request.sid] = request.cookies['student_id'] # used for keeping track of connected students
-    for cls in class2students:
-        class2students[cls].discard(request.cookies['student_id']) # a student can only be in a single class
+    for cls in class2students: # a student can only be in a single class
+        class2students[cls].discard(request.cookies['student_id'])
     class2students[class_id].add(request.cookies['student_id'])
 
 def student_count(class_id): return L(sid2student.values()).filter(lambda s: s in class2students[class_id]).count()

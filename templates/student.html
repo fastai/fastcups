@@ -39,12 +39,7 @@
       socket.emit('register_student', timestamp, class_id);
 
       // to handle server restarts
-      // at 'connect' we don't know if the server restarted or user opened a new tab
-      // hence the need for an ajax call (to update cup color to 'inactive' in case of a restart)
-      socket.emit('get_cup_color', function(response) {
-        path.attr('class', '');
-        path.addClass(response);
-      });
+      path.attr('class', 'inactive');
     });
 
     socket.on('deactivate_old_tabs', function(data) {
