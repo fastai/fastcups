@@ -7,12 +7,15 @@ app = Flask(__name__)
 socketio = SocketIO(app)
 sid2student, student2color, class2students  = dict(), collections.defaultdict(lambda: 'inactive'), collections.defaultdict(lambda: set())
 
-@app.route("/<class_id>")
+@app.route('/')
+def root(): return render_template('howto.html')
+
+@app.route('/<class_id>')
 def student_interface(class_id):
     student_id = request.cookies.get('student_id') or ''.join(random.choices(string.ascii_letters, k=12))
     class2students[class_id].add(student_id)
-    student2color[student_id] = 'inactive' # upon connecting / reconnecting / opening a new tab a student is in an inactive state
-    response = make_response(render_template('student.html', cup_state=student2color[student_id], timestamp=time.time(), class_id=class_id))
+    student2color[student_id] = 'inactive' # upon connecting / opening a new tab a student is in an inactive state
+    response = make_response(render_template('student.html', timestamp=time.time(), class_id=class_id))
     response.set_cookie('student_id', student_id)
     return response
 
@@ -35,7 +38,7 @@ def color_fraction(class_id):
     return {color: L(connected_student2color(class_id).values()).map(eq(color)).sum()/(active_student_count(class_id) or 1)
             for color in ['green', 'yellow', 'red']}
 
-@app.route("/<class_id>/teacher")
+@app.route('/<class_id>/teacher')
 def teacher_interface(class_id):
     return render_template('teacher.html', student_count=student_count(class_id),
         active_student_count=active_student_count(class_id), color2frac=color_fraction(class_id))
