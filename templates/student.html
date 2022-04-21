@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 
 <span id="timestamp">{{ timestamp }}</span>
+<span id="class_id">{{ class_id }}</span>
 
 <div class="main">
   <svg viewBox="0 0 218 227" xmlns="http://www.w3.org/2000/svg">
@@ -28,13 +29,14 @@
     var socket = io();
     var path = u("path");
     var timestamp = parseFloat(u("#timestamp").html());
+    var class_id = u("#class_id").html();
 
     socket.on('connect', function() {
       // we are using the SID to track connected students
       // SID is only available AFTER js loads, hence this call
       // (othwerise, we could store the SID for tracking connections
       // directly in student_interface on the server)
-      socket.emit('register_student', timestamp);
+      socket.emit('register_student', timestamp, class_id);
 
       // to handle server restarts
       // at 'connect' we don't know if the server restarted or user opened a new tab

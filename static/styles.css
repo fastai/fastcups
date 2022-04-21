@@ -35,7 +35,7 @@ path.red {
   fill: #FF4848;
 }
 
-#timestamp {
+#timestamp, #class_id {
   display: none;
 }
 
