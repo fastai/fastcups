@@ -21,15 +21,18 @@ def get_cup_color_for_student():
 
 @socketio.on('register_student')
 def register_student(timestamp, class_id):
-    emit('close_old_tabs', {'student_id': request.cookies.get('student_id'), 'timestamp': timestamp}, broadcast=True, namespace='/')
-    sid2student[request.sid] = request.cookies['student_id']
+    emit('deactivate_old_tabs', # a student can only have a single tab active
+            {'student_id': request.cookies.get('student_id'), 'timestamp': timestamp}, broadcast=True, namespace='/')
+    sid2student[request.sid] = request.cookies['student_id'] # used for keeping track of connected students
+    for cls in class2students:
+        class2students[cls].discard(request.cookies['student_id']) # a student can only be in a single class
     class2students[class_id].add(request.cookies['student_id'])
 
-def student_count(class_id): return len(L(sid2student.values()).filter(lambda s: s in class2students[class_id])) #return len(sid2student)
+def student_count(class_id): return L(sid2student.values()).filter(lambda s: s in class2students[class_id]).count()
 def connected_student2color(class_id):
     return {k: v for k, v in student2color.items() if (k in class2students[class_id]) and (k in sid2student.values())}
 def active_student_count(class_id): # active student == one who is connected and color != 'inactive'
-    return len(L(connected_student2color(class_id).values()).filter(lambda c: c != 'inactive'))
+    return L(connected_student2color(class_id).values()).filter(lambda c: c != 'inactive').count()
 
 def color_fraction(class_id):
     return {color: L(connected_student2color(class_id).values()).map(eq(color)).sum()/(active_student_count(class_id) or 1)
@@ -46,7 +49,9 @@ def handle_color_change(new_color): student2color[request.cookies['student_id']]
 @socketio.on('disconnect')
 def handle_disconnect():
     student = sid2student.pop(request.sid, None)
-    for cls in class2students: class2students[cls].discard(student)
+
+@patch_to(L)
+def count(self): return len(self)
 
 socketio.run(app, debug=True)
 

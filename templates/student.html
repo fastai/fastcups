@@ -47,10 +47,10 @@
       });
     });
 
-    socket.on('close_old_tabs', function(data) {
+    socket.on('deactivate_old_tabs', function(data) {
       if (timestamp < data['timestamp']) {
         if (Cookies.get('student_id') == data['student_id']) {
-          u('body').html('<h1>You opened a new tab for selecting cups. Please close this one.</h1>')
+          u('body').html('<h1>This tab is no longer active. Please close it or reload the page to reactivate it.</h1>')
         socket.disconnect();
         }
       }
