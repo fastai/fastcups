@@ -54,5 +54,5 @@ def handle_disconnect():
 @patch_to(L)
 def count(self): return len(self)
 
-socketio.run(app, debug=True)
+socketio.run(app)
 
