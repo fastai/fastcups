@@ -9,7 +9,7 @@ socketio = SocketIO(app)
 sid2student, student2color, class2students  = dict(), dict(), collections.defaultdict(lambda: set())
 
 @app.route('/')
-def root(): return render_template('howto.html', url=f'{urlparse(request.base_url).scheme}://{urlparse(request.base_url).hostname}')
+def root(): return render_template('howto.html', url=f'https://{urlparse(request.base_url).hostname}')
 
 @app.route('/<class_id>')
 def student_interface(class_id):
