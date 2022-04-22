@@ -1,7 +1,6 @@
-<!doctype html>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+{% extends "layout.html" %}
 
+{% block body %}
 <div style="margin: 20px auto 0; height: {{ color2frac['red'] * 60}}vh; width: 100px; background-color: red">
 </div>
 <div style="margin: auto; height: {{ color2frac['yellow'] * 60}}vh; width: 100px; background-color:yellow">
@@ -24,3 +23,4 @@
     window.location.reload();
   }, 1000);
 </script>
+{% endblock %}

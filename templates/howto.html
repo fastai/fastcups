@@ -1,7 +1,6 @@
-<!doctype html>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+{% extends "layout.html" %}
 
+{% block body %}
 <div class="main">
   <p><strong>Fastcups</strong> allows you to stay in sync with your students while you teach.</p>
   <p><strong>Usage instructions:</strong><br><br>
@@ -13,3 +12,4 @@
   <p>Note: If you are reusing your class name (a valid strategy) DO ask your students to go to the provided URL (or reload an already open page) at the start of each class! This will ensure they are properly registered on the system.</p>
   <p>To learn more about this method of interacting with your students and the positive impact it can have please watch this <a href="https://www.youtube.com/watch?v=J25d9aC1GZA" target="_blank">youtube video.</a></p>
 </div>
+{% endblock %}
