@@ -37,7 +37,7 @@
       // directly in student_interface on the server)
       socket.emit('register_student', timestamp, class_id);
 
-      // to handle server restarts
+      // to handle server restarts / reconnections
       path.attr('class', 'inactive');
     });
 
