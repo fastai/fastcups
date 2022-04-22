@@ -1,6 +1,9 @@
 pip install -r requirements.txt
 
-ulimit -n 100000
+sudo tee -a /etc/sysctl.conf > /dev/null <<EOF
+fs.file-max=100000
+EOF
+sudo sysctl -p
 
 mkdir -p ~/.config/systemd/user/
 
