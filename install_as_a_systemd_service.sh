@@ -30,7 +30,7 @@ read -e -p "Enter the URL for your fastcups instance (can be an IP address or a 
 sudo tee /etc/caddy/Caddyfile > /dev/null <<EOF
 ${URL}
 
-abort /favicon.ico
+file_server /static/*
 reverse_proxy 127.0.0.1:5000
 EOF
 
