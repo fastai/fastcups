@@ -1,9 +1,16 @@
 pip install -r requirements.txt
 
+# Increase the open file count limit
 sudo tee -a /etc/sysctl.conf > /dev/null <<EOF
 fs.file-max=100000
 EOF
 sudo sysctl -p
+
+sudo tee -a /etc/security/limits.conf > /dev/null <<EOF
+*       soft    nofile  100000
+*       hard    nofile  100000
+*       -       nofile  100000
+EOF
 
 mkdir -p ~/.config/systemd/user/
 
@@ -43,3 +50,6 @@ read -e -p "Do you have ufw running and would like to open the https port? [y/n]
 [[ $REPLY = y* ]] && sudo ufw allow https
 read -e -p "Do you have ufw running and would like to open the http port now? [y/n] " -i n
 [[ $REPLY = y* ]] && sudo ufw allow http
+
+[[ -z $REBOOT ]] && read -e -p 'It is recommended to reboot now so that new settings can take effect, type "y" to reboot. ' REBOOT
+[[ $REBOOT = y* ]] && shutdown -r now || echo You chose not to reboot now. When ready, type: shutdown -r now
