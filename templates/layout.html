@@ -10,11 +10,11 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@fastdotai" />
     <meta name="twitter:creator" content="@jeremyphoward" />
-    <meta name="twitter:image" content="https://cups.fast.ai/static/cups.jpg" />
+    <meta name="twitter:image" content="{{ url_for("static", filename="cups.jpg", _external=True, _scheme="https") }}" />
     <meta property="og:url" content="https://cups.fast.ai/" />
     <meta property="og:title" content="Fastcups - stay in sync with your students" />
     <meta property="og:description" content="Making sure your students are able to follow along as you teach is important! Fastcups can help!" />
-    <meta property="og:image" content="{{ url_for('static', filename='cups.jpg') }}" />
+    <meta property="og:image" content="{{ url_for("static", filename="cups.jpg", _external=True, _scheme="https") }}" />
   </head>
   <body>
     {% block body %}
