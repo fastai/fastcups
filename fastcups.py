@@ -52,8 +52,8 @@ def handle_color_change(new_color): student2color[request.cookies['student_id']]
 def handle_disconnect():
     student = sid2student.pop(request.sid, None)
 
-@patch_to(L)
-def count(self): return len(self)
+@patch
+def count(self:L): return len(self)
 
 socketio.run(app)
 
